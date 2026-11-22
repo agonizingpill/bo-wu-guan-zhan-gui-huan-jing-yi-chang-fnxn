@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 
 from .casework_routes import router as operational_cases
 from .operations_evidence import router as operations_evidence
+from .qc_routes import router as qc_router
 from src.config.settings import REDIS_URL
 from src.middlewares.auth import current_user, issue_token, require_roles
 from src.middlewares.request_guard import rate_limit
@@ -20,6 +21,7 @@ from src.utils.db import clean, execute, execute_returning, fetch_all, fetch_one
 app = FastAPI(title='展柜环境异常值守台', version='1.0.0')
 app.include_router(operational_cases)
 app.include_router(operations_evidence)
+app.include_router(qc_router)
 redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
 
 
